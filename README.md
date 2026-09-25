@@ -10,6 +10,11 @@ Remote Codex 是一个面向**已获授权的远程运维、远程支持和开�
 
 ## 社区交流
 
+<p align="center">
+  <img src="brand/codex-ai-qq-group.jpg" alt="codeX AI交流群 QQ 群二维码" width="360">
+</p>
+<p align="center"><strong>扫码加入 codeX AI交流群 · QQ群 444137478</strong></p>
+
 欢迎加入 **codeX AI交流群**，QQ群：`444137478`，交流 Codex、AI 开发与 Remote Codex 使用经验。
 
 ## 产品核心优势

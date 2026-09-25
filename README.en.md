@@ -10,6 +10,11 @@ The project is maintained by [The One Tech / 泰安泽万泰克网络科技有�
 
 ## Community
 
+<p align="center">
+  <img src="brand/codex-ai-qq-group.jpg" alt="codeX AI交流群 QQ group QR code" width="360">
+</p>
+<p align="center"><strong>Scan to join codeX AI交流群 · QQ group 444137478</strong></p>
+
 Join the **codeX AI交流群** QQ group: `444137478` to discuss Codex, AI development, and Remote Codex usage.
 
 ## Key product advantages
