@@ -6,6 +6,10 @@ Remote Codex is an open-source toolkit for **authorized remote operations, remot
 
 The project is maintained by [The One Tech / 泰安泽万泰克网络科技有限公司](https://github.com/zone3029).
 
+## Community
+
+Join the **codeX AI交流群** QQ group: `444137478` to discuss Codex, AI development, and Remote Codex usage.
+
 ## Key product advantages
 
 ### 1. A self-hosted Relay tunnel for direct remote connectivity
