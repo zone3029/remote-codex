@@ -20,6 +20,37 @@ The AI tool runs on your local development machine or controller. The Codex Skil
 
 The managed computer only needs the Agent and required system components. It does not need Python, Node.js, a model, an AI SDK, an API key, or a second AI environment. Models, prompts, accounts, and developer tools can stay on the administrator side while endpoint permissions and operation auditing remain in place.
 
+### 3. LAN first, Relay fallback when needed
+
+The Agent discovers and registers private IPv4 addresses and a LAN control port. When the CLI starts an RDP session, it filters for addresses on the controller’s local subnet and probes the Windows 3389 port first. If the endpoint is reachable on the LAN, the connection is direct; otherwise the CLI creates a Relay tunnel. This is useful for fast maintenance in an office, server room, or campus network while remaining usable across networks or from outside the office.
+
+The Agent also exposes authenticated LAN endpoints protected by HTTPS, a certificate fingerprint, short-lived HMAC tickets, one-time nonces, replay protection, and SHA-256 checks. They support commands, uploads, and downloads; file writes use temporary files and atomic replacement, and repeated transfer IDs are idempotent.
+
+### 4. Screenshots, mouse and keyboard control, and Web RDP
+
+In the signed-in Windows interactive desktop, a user can explicitly enable “Allow Codex interface control” in the Agent. While that consent is valid, an authorized task can:
+
+- read the current desktop size and capture a PNG screenshot;
+- move the mouse and perform left, right, or middle clicks;
+- type Unicode text;
+- send key combinations;
+- scroll vertically or horizontally;
+- remove temporary screenshot files.
+
+The `web-rdp/` directory also provides a Guacamole-based browser RDP interface with desktop streaming, keyboard input, and mouse events. Screenshot and interface control require a logged-in interactive user and active consent. This lets a local AI observe the screen and complete graphical operations within the approved scope.
+
+## Feature overview
+
+| Capability | Implemented behavior | Typical use |
+| --- | --- | --- |
+| Device discovery | Relay registry, heartbeats, aliases, and LAN addresses | Manage multiple Windows endpoints |
+| LAN connectivity | Same-subnet RDP probe and authenticated Agent LAN API | Fast office, server-room, or campus maintenance |
+| Relay tunnel | HTTPS/WebSocket, RDP port forwarding, reconnect handling | Cross-subnet, Internet, and no-inbound-port environments |
+| PowerShell jobs | Timeouts, cancellation, exit codes, output, and operation logs | Installation, diagnostics, and automation |
+| File transfer | SHA-256 checks, atomic writes, idempotent transfers, and LAN API | Packages, logs, and configuration files |
+| Graphical control | Screenshots, mouse, keyboard, scroll, and browser RDP | Tasks that require viewing and operating Windows UI |
+| Local AI orchestration | Codex Skill, CLI, and interactive command bridge | Local AI operating a remote Windows endpoint |
+
 
 > ⚠️ **Read before use:** This project is for explicitly authorized computers and networks only. Read the [disclaimer and acceptable-use boundary](DISCLAIMER.en.md) before deployment or operation.
 
