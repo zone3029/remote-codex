@@ -1,0 +1,31 @@
+# Secrets and runtime state
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+relay-config.json
+relay.env
+relay-config-*.env
+identity.json
+devices.json
+config.json
+*-state.json
+
+# Dependencies and generated output
+**/node_modules/
+**/dist/
+**/build/service/*.exe
+**/build/service/*.exe.config
+*.asar
+*.dmg
+*.pkg
+*.msi
+*.nsis.7z
+*.blockmap
+
+# Local and visual artifacts
+.DS_Store
+*.log
+zone-*.png
+*.tmp

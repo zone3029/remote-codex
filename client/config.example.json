@@ -1,0 +1,5 @@
+{
+  "server": "https://relay.example.com/remote-codex",
+  "controllerToken": "replace-with-a-random-controller-token",
+  "defaultDevice": "office-pc"
+}

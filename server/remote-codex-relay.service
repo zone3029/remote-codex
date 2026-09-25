@@ -1,0 +1,19 @@
+[Unit]
+Description=Remote Codex Relay
+After=network.target
+
+[Service]
+Type=simple
+User=remote-codex
+Group=remote-codex
+EnvironmentFile=/etc/remote-codex/relay.env
+ExecStart=/usr/bin/node /opt/remote-codex/relay.mjs
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

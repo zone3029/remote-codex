@@ -1,0 +1,16 @@
+services:
+  relay:
+    build:
+      context: ../..
+      dockerfile: deploy/docker/Dockerfile
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "127.0.0.1:18765:18765"
+      - "31000-31999:31000-31999"
+    volumes:
+      - relay-data:/var/lib/remote-codex
+      - relay-updates:/opt/remote-codex/updates/windows
+volumes:
+  relay-data:
+  relay-updates:

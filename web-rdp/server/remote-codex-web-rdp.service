@@ -1,0 +1,23 @@
+[Unit]
+Description=Remote Codex Web RDP Gateway
+After=network.target docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+User=remote-codex
+Group=remote-codex
+EnvironmentFile=/etc/remote-codex/relay.env
+EnvironmentFile=/etc/remote-codex/web-rdp.env
+WorkingDirectory=/opt/remote-codex/web-rdp
+ExecStart=/usr/bin/node /opt/remote-codex/web-rdp/server/gateway.cjs
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/remote-codex/web-rdp
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,92 @@
+{
+  "name": "remote-codex-agent",
+  "version": "0.4.35",
+  "description": "Remote Codex Windows agent",
+  "main": "main.js",
+  "author": "The One Tech (泰安泽万泰克网络科技有限公司)",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test test/*.test.js",
+    "dist:win": "electron-builder --win nsis --x64"
+  },
+  "devDependencies": {
+    "electron": "^43.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "dependencies": {
+    "electron-updater": "^6.8.9",
+    "selfsigned": "^3.0.1"
+  },
+  "build": {
+    "appId": "com.remotecodex.agent",
+    "productName": "Remote Codex Agent",
+    "files": [
+      "main.js",
+      "worker.js",
+      "watchdog.js",
+      "service-manager.js",
+      "service-host.js",
+      "interactive-bridge.js",
+      "network-addresses.js",
+      "log-file.js",
+      "lan-server.js",
+      "remote-computer-use.ps1",
+      "preload.js",
+      "embedded-config.json",
+      "renderer/**/*",
+      "assets/tray.png"
+    ],
+    "extraResources": [
+      {
+        "from": "build/service/RemoteCodexAgentService.exe",
+        "to": "service/RemoteCodexAgentService.exe"
+      },
+      {
+        "from": "build/service/RemoteCodexAgentService.exe.config",
+        "to": "service/RemoteCodexAgentService.exe.config"
+      },
+      {
+        "from": "build/service/node-windows-LICENSE.txt",
+        "to": "licenses/node-windows-LICENSE.txt"
+      }
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "icon": "assets/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "https://relay.example.com/remote-codex/updates/windows"
+      }
+    ],
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": false,
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": true,
+      "include": "build/installer.nsh"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zone3029/remote-codex.git"
+  }
+}

@@ -1,0 +1,3 @@
+display_name: Remote Codex 运维
+short_description: 发现并操作已授权的 Remote Codex 远程设备
+default_prompt: 使用 Remote Codex 运维流程先确认设备，再执行用户授权的远程任务；不要暴露任何令牌、密码或私钥。

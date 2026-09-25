@@ -1,0 +1,18 @@
+server {
+    listen 443 ssl;
+    server_name relay.example.com;
+    ssl_certificate /etc/letsencrypt/live/relay.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/relay.example.com/privkey.pem;
+    location /remote-codex/ {
+        proxy_pass http://127.0.0.1:18765/;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_read_timeout 12h;
+        proxy_send_timeout 12h;
+        client_max_body_size 5g;
+        proxy_request_buffering off;
+    }
+}
