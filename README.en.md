@@ -139,7 +139,7 @@ bash deploy/docker/generate-config.sh deploy/docker/.env
 docker compose -f deploy/docker/docker-compose.yml up -d --build
 ```
 
-For systemd, see the [deployment and usage guide](README-Remote-Codex-部署与使用.md). A public deployment must use an HTTPS reverse proxy with WebSocket and long-connection support.
+The generator creates separate random controller and enrollment tokens. The controller token is for the CLI and Skill; the enrollment token is for first-time Windows Agent registration. It does not issue a public HTTPS certificate, so production still needs Nginx, Caddy, or a cloud load balancer in front of the Relay. For systemd paths and the exact Agent `relay-config.json` format, see the [bilingual deployment and usage guide](README-Remote-Codex-部署与使用.md). Never commit `.env` or `relay-config.json`.
 
 ### Start the Windows Agent
 
@@ -149,11 +149,11 @@ npm ci
 npm start
 ```
 
-Configure the Relay HTTPS URL, enrollment token, and certificate SHA-256 fingerprint in the Agent. Building the Windows installer also requires the service wrapper described in the deployment guide.
+Configure the Relay HTTPS URL, enrollment token, and public certificate SHA-256 fingerprint in the Agent. You can import a private `relay-config.json` containing `server`, `enrollmentToken`, and `certificateFingerprint256`; do not publish this file. Building the Windows installer also requires the service wrapper described in the deployment guide.
 
 ### Use the CLI and Skill
 
-Copy `client/config.example.json` to a private location, fill in the Relay URL and controller token, and set `REMOTE_CODEX_CONFIG`. After installing `skill/remote-codex-operations/`, list devices before selecting a target:
+Copy `client/config.example.json` to a private location, fill in the Relay URL and controller token, set its permissions to `0600`, and set `REMOTE_CODEX_CONFIG` (or use the default `~/.config/remote-codex/config.json`). The CLI and Skill use this same file. After installing `skill/remote-codex-operations/`, list devices before selecting a target:
 
 ```bash
 node client/remote-codex.mjs devices

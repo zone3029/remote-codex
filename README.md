@@ -139,7 +139,7 @@ bash deploy/docker/generate-config.sh deploy/docker/.env
 docker compose -f deploy/docker/docker-compose.yml up -d --build
 ```
 
-Linux systemd 部署见[部署与使用指南](README-Remote-Codex-部署与使用.md)。公网部署必须使用 HTTPS 反向代理，并正确转发 WebSocket 和长连接。
+脚本会生成独立的 controller token 和 enrollment token：前者只给 CLI/Skill，后者只给 Windows Agent 首次注册。脚本不会申请公网 HTTPS 证书；生产环境要在 Relay 前配置 Nginx、Caddy 或云负载均衡。Linux systemd 的配置路径、Agent `relay-config.json` 格式和安全要求见[部署与使用指南](README-Remote-Codex-部署与使用.md)。不要提交 `.env` 或 `relay-config.json`。
 
 ### 启动 Windows Agent
 
@@ -153,7 +153,16 @@ npm start
 
 ### 使用 CLI 和 Skill
 
-复制 `client/config.example.json` 到私有目录，填写 Relay 地址和 controller token，并设置 `REMOTE_CODEX_CONFIG`。安装 `skill/remote-codex-operations/` 后，先列设备再选择目标：
+复制 `client/config.example.json` 到私有目录，填写 Relay 地址和 controller token，并设置 `REMOTE_CODEX_CONFIG`（默认路径为 `~/.config/remote-codex/config.json`）：
+
+```bash
+mkdir -p ~/.config/remote-codex
+cp client/config.example.json ~/.config/remote-codex/config.json
+chmod 600 ~/.config/remote-codex/config.json
+export REMOTE_CODEX_CONFIG="$HOME/.config/remote-codex/config.json"
+```
+
+安装 `skill/remote-codex-operations/` 后，先列设备再选择目标：
 
 ```bash
 node client/remote-codex.mjs devices

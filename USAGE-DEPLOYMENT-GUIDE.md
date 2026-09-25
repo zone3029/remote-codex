@@ -10,32 +10,50 @@
 
 Relay 默认只监听 127.0.0.1:18765。生产环境需要在前面配置 Nginx 或 Caddy，提供 HTTPS，并转发 /remote-codex/ 和 WebSocket 长连接。
 
-## 二、Docker 部署
+## 二、生成中转服务配置并部署 Docker
 
-进入 deploy/docker 目录：
+中转端生成两种不能混用的令牌：controller token 给 CLI/Skill，enrollment token 给 Windows Agent 首次注册。
 
-    cp .env.example .env
-    bash generate-config.sh
+Linux systemd 安装会自动生成 `/etc/remote-codex/relay.env`、`config.example.json`、证书和私钥，并在终端输出 enrollment token 与证书 SHA-256 指纹：
 
-修改 .env 中的 REMOTE_CODEX_PUBLIC_HOST，然后在源码根目录执行：
+    sudo bash deploy/install.sh
 
+Docker 部署时，在源码根目录执行：
+
+    cp deploy/docker/.env.example deploy/docker/.env
+    bash deploy/docker/generate-config.sh deploy/docker/.env
+    # 编辑 deploy/docker/.env，设置 REMOTE_CODEX_PUBLIC_HOST
     docker compose -f deploy/docker/docker-compose.yml up -d --build
 
-公网访问必须通过 HTTPS 反向代理，不能直接把控制端口暴露到公网。
+脚本只在 `.env` 不存在令牌时生成随机值，不会覆盖已有文件，也不会生成公网 HTTPS 证书。生产环境要用 Nginx、Caddy 或云负载均衡代理 Relay，并把公开证书指纹交给 Agent。`.env`、relay.env 和私钥不能提交到 Git 或公开下载目录。
 
-## 三、安装 Windows Agent
+## 三、安装 Windows Agent 与生成配置文件
 
 运行压缩包内的：
 
     windows/Remote Codex Agent Setup 0.4.35.exe
 
-安装完成后打开 Agent，点击界面右上角的“中转服务器”按钮，填写服务器 URL、设备注册令牌和服务器证书 SHA-256 指纹。
+安装完成后打开 Agent，点击界面右上角的“中转服务器”。可直接填写，也可先在安全目录创建 `relay-config.json`：
 
-点击“测试连接”确认服务器和证书正常，再点击“保存并重新连接”。切换服务器不会改变设备 ID。
+    {
+      "server": "https://relay.example.com/remote-codex",
+      "enrollmentToken": "从 Relay 部署输出复制",
+      "certificateFingerprint256": "Relay 公网 HTTPS 证书 SHA-256 指纹"
+    }
 
-## 四、控制端 CLI
+在窗口中导入或填写后，点击“测试连接”，再点击“保存并重新连接”。`enrollmentToken` 只用于 Agent 注册，不能替换为 controller token；配置会保存到 Agent 用户数据目录，不要把它放进仓库、镜像或 Release。切换服务器不会改变设备 ID。
 
-复制 client/config.example.json 为私有配置文件，填写 server 和 controllerToken。设置环境变量 REMOTE_CODEX_CONFIG 指向该文件，然后执行：
+## 四、控制端 CLI 与 Codex Skill
+
+CLI 和 Skill 共用一份私有配置：
+
+    mkdir -p ~/.config/remote-codex
+    cp client/config.example.json ~/.config/remote-codex/config.json
+    # 编辑 server、controllerToken，可选 defaultDevice
+    chmod 600 ~/.config/remote-codex/config.json
+    export REMOTE_CODEX_CONFIG="$HOME/.config/remote-codex/config.json"
+
+`controllerToken` 必须来自 Relay 的 controller token。Skill 未设置环境变量时默认读取 `~/.config/remote-codex/config.json`。然后执行：
 
     node client/remote-codex.mjs devices
     node client/remote-codex.mjs exec --device DEVICE_ID -- "Get-ChildItem"
