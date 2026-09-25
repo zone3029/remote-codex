@@ -6,6 +6,23 @@ Remote Codex 是一个面向**已获授权的远程运维、远程支持和开�
 
 项目由 [The One Tech / 泰安泽万泰克网络科技有限公司](https://github.com/zone3029) 维护。
 
+## 产品核心优势
+
+### 1. 自建 Relay 中转隧道，直接连接远端电脑
+
+控制端和 Windows Agent 都主动连接你自己部署的 Relay，由 Relay 转发控制、文件、RDP 和桌面操作流量。被控端不需要暴露公网入站端口，通常也不需要配置端口映射；你可以把 Relay 部署在靠近主要用户或设备的云主机、内网节点或专用服务器上。
+
+这让连接路径、带宽和服务器位置由你自己控制，减少对第三方公共中继节点的依赖。与向日葵、ToDesk 等通用远程桌面产品相比，Remote Codex 的重点是自建中转隧道和可编排的开发者运维能力；这里不对其他产品的性能作评价，也不表示存在任何关联。
+
+### 2. 本地 AI 操作远端电脑，被控端无需配置 AI 环境
+
+AI 工具运行在你的本地开发机或控制端。Codex Skill、CLI 和 Relay 将经过授权的命令、文件操作、RDP 或桌面操作发送到 Windows Agent，再由 Agent 调用被控端已有的 Windows 能力执行。
+
+被控端只需要安装 Agent 和必要的系统组件，不需要再安装 Python、Node.js、模型、AI SDK、API Key 或另一套 AI 运行环境。这样可以把模型、提示词、账号和开发工具集中在管理员侧，同时保留被控端的权限控制和操作审计。
+
+
+> ⚠️ **使用前必读：** 本项目仅适用于获得明确授权的设备和网络。请先阅读[免责声明与使用边界](DISCLAIMER.md)，再进行部署或运行。
+
 ## 这是什么
 
 Remote Codex 让管理员可以通过自己部署的中转服务，连接已经安装并授权的 Windows Agent，然后执行受控的远程操作，例如：
@@ -123,6 +140,7 @@ node client/remote-codex.mjs exec --device DEVICE_ID -- "Get-ChildItem"
 
 ## 文档
 
+- [免责声明与使用边界](DISCLAIMER.md)
 - [中文部署与使用指南](README-Remote-Codex-部署与使用.md)
 - [English documentation](README.en.md)
 - [操作变更记录](CHANGELOG.md)

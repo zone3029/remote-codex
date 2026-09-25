@@ -6,6 +6,23 @@ Remote Codex is an open-source toolkit for **authorized remote operations, remot
 
 The project is maintained by [The One Tech / 泰安泽万泰克网络科技有限公司](https://github.com/zone3029).
 
+## Key product advantages
+
+### 1. A self-hosted Relay tunnel for direct remote connectivity
+
+The controller and Windows Agent both make outbound connections to a Relay that you operate. The Relay forwards control, file, RDP, and desktop-operation traffic through an authenticated tunnel. The managed computer normally does not need a public inbound port or manual port forwarding; you can place the Relay close to your users or devices on a cloud VM, internal node, or dedicated server.
+
+You control the route, bandwidth, and Relay location instead of depending on a third-party public relay. Compared with general-purpose remote-desktop products such as Sunlogin or ToDesk, Remote Codex focuses on self-hosted tunneling and programmable developer operations. This is a capability distinction, not a performance claim or an affiliation with those products.
+
+### 2. Local AI operates the remote computer without an AI runtime on the endpoint
+
+The AI tool runs on your local development machine or controller. The Codex Skill, CLI, and Relay send authorized commands, file operations, RDP sessions, or desktop actions to the Windows Agent, which uses the endpoint’s existing Windows capabilities.
+
+The managed computer only needs the Agent and required system components. It does not need Python, Node.js, a model, an AI SDK, an API key, or a second AI environment. Models, prompts, accounts, and developer tools can stay on the administrator side while endpoint permissions and operation auditing remain in place.
+
+
+> ⚠️ **Read before use:** This project is for explicitly authorized computers and networks only. Read the [disclaimer and acceptable-use boundary](DISCLAIMER.en.md) before deployment or operation.
+
 ## What this project is
 
 Remote Codex lets an administrator connect to an installed and authorized Windows Agent through a Relay that they operate. It supports workflows such as:
@@ -123,6 +140,7 @@ For vulnerability reports, read [SECURITY.md](SECURITY.md) and contact `30291142
 
 ## Documentation
 
+- [免责声明与使用边界](DISCLAIMER.en.md)
 - [中文部署与使用指南](README-Remote-Codex-部署与使用.md)
 - [English deployment overview](README-Remote-Codex.md)
 - [Changelog](CHANGELOG.md)
