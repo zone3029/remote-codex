@@ -6,6 +6,8 @@ Remote Codex 是一个面向**已获授权的远程运维、远程支持和开�
 
 项目由 [The One Tech / 泰安泽万泰克网络科技有限公司](https://github.com/zone3029) 维护。
 
+> 💬 加入 **codeX AI交流群**：QQ群 `444137478`，交流 Codex、AI 开发与 Remote Codex 使用经验。
+
 ## 社区交流
 
 欢迎加入 **codeX AI交流群**，QQ群：`444137478`，交流 Codex、AI 开发与 Remote Codex 使用经验。

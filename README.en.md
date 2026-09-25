@@ -6,6 +6,8 @@ Remote Codex is an open-source toolkit for **authorized remote operations, remot
 
 The project is maintained by [The One Tech / 泰安泽万泰克网络科技有限公司](https://github.com/zone3029).
 
+> 💬 Join **codeX AI交流群** on QQ: `444137478` for Codex, AI development, and Remote Codex discussions.
+
 ## Community
 
 Join the **codeX AI交流群** QQ group: `444137478` to discuss Codex, AI development, and Remote Codex usage.
