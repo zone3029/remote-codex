@@ -27,7 +27,7 @@ Relay 默认只监听 127.0.0.1:18765。生产环境需要在前面配置 Nginx 
 
 运行压缩包内的：
 
-    windows/Remote Codex Agent Setup 0.4.30.exe
+    windows/Remote Codex Agent Setup 0.4.35.exe
 
 安装完成后打开 Agent，点击界面右上角的“中转服务器”按钮，填写服务器 URL、设备注册令牌和服务器证书 SHA-256 指纹。
 
